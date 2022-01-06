@@ -1,9 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"inkass/inkassback/database"
 	"inkass/inkassback/env"
+	"inkass/inkassback/router"
+	"net/http"
 
+	"github.com/gorilla/handlers"
 	language "github.com/moemoe89/go-localization"
 )
 
@@ -22,12 +25,12 @@ func bootstrap() {
 }
 
 func init() {
-	
+
 	bootstrap()
 }
 
 func main() {
-	fmt.Println(env.Lang.Lookup("uz", "Good morning"))
-	fmt.Println(env.Lang.Lookup("cr", "Good morning"))
-	fmt.Println(env.Lang.Lookup("ru", "Good morning"))
+	database.InitialMigration()
+	router.CreateRouter()
+	http.ListenAndServe(":8081", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Access-Control-Allow-Origin", "Content-Type", "Authorization", "Token"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(env.Router))
 }

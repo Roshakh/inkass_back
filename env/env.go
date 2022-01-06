@@ -1,12 +1,14 @@
 package env
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/moemoe89/go-localization"
+	"html/template"
 
+	"github.com/gorilla/mux"
+	language "github.com/moemoe89/go-localization"
 )
 
 var (
-	Router *mux.Router
-	Lang *language.Config 
+	Router    *mux.Router
+	Lang      *language.Config
+	Templates *template.Template
 )
