@@ -20,7 +20,7 @@ type HomeScreen struct {
 	Email         string         `json:"email"`
 	Online        uint           `json:"online"`
 	LastUpdate    string         `json:"last_update"`
-	Link          Links          `json:"links"`
+	Links         Links          `json:"links"`
 	CurrencyRates CurrencyRates  `json:"currency_rates"`
 }
 

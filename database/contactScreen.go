@@ -2,11 +2,11 @@ package database
 
 import sm "inkass/inkassback/models/site-models"
 
-func GetContactScreen() []sm.ContactScreen {
+func GetContactScreen() sm.ContactScreen {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	var contactScreen []sm.ContactScreen
-	connection.Preload("Regions").Preload("Regions.Branch").Find(&contactScreen)
+	var contactScreen sm.ContactScreen
+	connection.Preload("Regions").Preload("Regions.Branches").First(&contactScreen)
 	return contactScreen
 }
 
@@ -16,10 +16,10 @@ func CreateContactScreen(contactScreen sm.ContactScreen) {
 	connection.Create(&contactScreen)
 }
 
-func EditContactScreen(contactScreen sm.ContactScreen) {
+func EditContactScreen(contactScreen *sm.ContactScreen) {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	connection.Save(&contactScreen)
+	connection.Save(contactScreen)
 }
 
 func DeleteContactScreen(id uint) {

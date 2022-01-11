@@ -2,11 +2,11 @@ package database
 
 import sm "inkass/inkassback/models/site-models"
 
-func GetHomeScreen() []sm.HomeScreen {
+func GetHomeScreen() sm.HomeScreen {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	var home []sm.HomeScreen
-	connection.Preload("CurrencyRates").Preload("Link").Find(&home)
+	var home sm.HomeScreen
+	connection.Preload("CurrencyRates").Preload("Links").First(&home)
 	return home
 }
 

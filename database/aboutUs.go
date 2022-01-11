@@ -2,11 +2,11 @@ package database
 
 import sm "inkass/inkassback/models/site-models"
 
-func GetAboutUs() []sm.AboutUs {
+func GetAboutUs() sm.AboutUs {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	var aboutUs []sm.AboutUs
-	connection.Find(&aboutUs)
+	var aboutUs sm.AboutUs
+	connection.Preload("Review").First(&aboutUs)
 	return aboutUs
 }
 

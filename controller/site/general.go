@@ -1,6 +1,7 @@
 package site
 
 import (
+	"html/template"
 	"inkass/inkassback/database"
 	"inkass/inkassback/env"
 	"net/http"
@@ -11,12 +12,19 @@ func HomeScreen(w http.ResponseWriter, r *http.Request) {
 	env.Templates.ExecuteTemplate(w, "index.html", home)
 }
 func AboutUs(w http.ResponseWriter, r *http.Request) {
-	reviews := database.GetReviews()
-	env.Templates.ExecuteTemplate(w, "aboutus.html", reviews)
+	aboutus := database.GetAboutUs()
+	env.Templates.ExecuteTemplate(w, "aboutus.html", aboutus)
+}
+
+func add(x, y int) int {
+	return x + y
 }
 
 func ContactScreen(w http.ResponseWriter, r *http.Request) {
-	env.Templates.ExecuteTemplate(w, "contacts.html", nil)
+	contactScreen := database.GetContactScreen()
+	f := template.FuncMap{"add": add}
+	env.Templates.Funcs(f)
+	env.Templates.ExecuteTemplate(w, "contacts.html", contactScreen)
 }
 
 func Leaders(w http.ResponseWriter, r *http.Request) {
@@ -48,17 +56,22 @@ func SimpleNews(w http.ResponseWriter, r *http.Request) {
 	env.Templates.ExecuteTemplate(w, "simple-news.html", nil)
 }
 func TarifTable(w http.ResponseWriter, r *http.Request) {
-	env.Templates.ExecuteTemplate(w, "tarif-table.html", nil)
+	tarifTable := database.GetTarifTable()
+	f := template.FuncMap{"add": add}
+	env.Templates.Funcs(f)
+	env.Templates.ExecuteTemplate(w, "tarif-table.html", tarifTable)
 }
 func TransportValuables(w http.ResponseWriter, r *http.Request) {
 	env.Templates.ExecuteTemplate(w, "transport-valuables.html", nil)
 }
 func ServiceCatalog(w http.ResponseWriter, r *http.Request) {
-	env.Templates.ExecuteTemplate(w, "service-catalog.html", nil)
+	service := database.GetService()
+	env.Templates.ExecuteTemplate(w, "service-catalog.html", service)
 }
 func VacanciesItem(w http.ResponseWriter, r *http.Request) {
 	env.Templates.ExecuteTemplate(w, "vacancies-item.html", nil)
 }
 func Vacancies(w http.ResponseWriter, r *http.Request) {
-	env.Templates.ExecuteTemplate(w, "vacancies.html", nil)
+	vacancies := database.GetVacancies()
+	env.Templates.ExecuteTemplate(w, "vacancies.html", vacancies)
 }

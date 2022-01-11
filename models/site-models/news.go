@@ -11,7 +11,6 @@ type News struct {
 	CreatedAt    time.Time      `json:"created_at"`
 	UpdatedAt    time.Time      `json:"updated_at"`
 	DeletedAt    gorm.DeletedAt `gorm:"index" json:"deleted_at"`
-	HomeScreenId uint           `json:"home_screen_id"`
 	Description  string         `json:"description"`
 	SingleNew    []SingleNew    `json:"single_new"`
 }

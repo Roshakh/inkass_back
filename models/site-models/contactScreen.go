@@ -16,7 +16,7 @@ type ContactScreen struct {
 	PhoneInfo   string         `json:"phone_info"`
 	Email       string         `json:"email"`
 	EmailInfo   string         `json:"email_info"`
-	Regions     Regions        `json:"regions"`
+	Regions     []Regions      `json:"regions"`
 }
 
 type Regions struct {
@@ -26,7 +26,7 @@ type Regions struct {
 	DeletedAt       gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 	ContactScreenId uint           `json:"contact_screen_id"`
 	RegionName      string         `json:"region_name"`
-	Branches        Branch         `json:"branches"`
+	Branches        []Branch       `json:"branches"`
 }
 
 type Branch struct {

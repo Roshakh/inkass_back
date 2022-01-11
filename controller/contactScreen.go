@@ -47,8 +47,8 @@ func EditContactScreen(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
-	if err == nil {
+	id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 32)
+	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
@@ -56,7 +56,7 @@ func EditContactScreen(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	contactScreen.Id = uint(id)
-	database.EditContactScreen(contactScreen)
+	database.EditContactScreen(&contactScreen)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(contactScreen)
 }

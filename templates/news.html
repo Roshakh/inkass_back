@@ -79,6 +79,7 @@
                         <h2 class="newsp__title _title2">Новости</h2>
                     </div>
                 </section>
+                {{range .}}
 				<div class="newsp-items">
 					<div class="newsp-items__container _container">
 						<div class="newsp-items__left">
@@ -86,31 +87,34 @@
 								<div class="item-newsbig__img _ibg">
 									<picture><source srcset="img/news-page.webp" type="image/webp"><img src="img/news-page.png" alt=""></picture>
 								</div>
+                                {{range .SingleNew}}
 								<div class="item-newsbig__body">
-									<a href="#" class="item-newsbig__title">Узбекистан можеть выпустить евробондов в этом году</a>
-									<div class="item-newsbig__time">10 July 2019 / 00:00</div>
-									<div class="item-newsbig__text">В Национальном пресс-центре, 25 сентября т.г. Центральным банком совместно с АКБ «Кишлоккурилиш банк» организован семинар-тренинг для представителей для представителей для представителей для представителей</div>
+									<a href="#" class="item-newsbig__title">{{.Title}}</a>
+									<div class="item-newsbig__time">{{.Time}}</div>
+									<div class="item-newsbig__text">{{.Description}}</div>
 									<a href="" class="item-newsbig__btn _btn2">Подробнее</a>
 								</div>
 							</div>
 						</div>
 						<div class="newsp-items__right">
-							<ul class="newsp-items__list">
-								<li class="newsp-item__mini item-newsmini">
-									<a href="#" class="item-newsmini__text">В Национальном пресс-центре, 25 сентября т.г. Центральным банком совместно с АКБ «Кишлоккурилиш банк» организован семинар-тренинг для представителей...</a>
-									<div class="item-newsmini__date">10 July 2019 / 00:00</div>
+                            <ul class="newsp-items__list">
+                                <li class="newsp-item__mini item-newsmini">
+                                    <a href="#" class="item-newsmini__text">{{.Description}}</a>
+									<div class="item-newsmini__date">{{.Time}}</div>
 								</li>
 								<li class="newsp-item__mini item-newsmini">
-									<a href="#" class="item-newsmini__text">В Национальном пресс-центре, 25 сентября т.г. Центральным банком совместно с АКБ «Кишлоккурилиш банк» организован семинар-тренинг для представителей...</a>
-									<div class="item-newsmini__date">10 July 2019 / 00:00</div>
+                                    <a href="#" class="item-newsmini__text">{{.Description}}</a>
+									<div class="item-newsmini__date">{{.Time}}</div>
 								</li>
 								<li class="newsp-item__mini item-newsmini">
-									<a href="#" class="item-newsmini__text">В Национальном пресс-центре, 25 сентября т.г. Центральным банком совместно с АКБ «Кишлоккурилиш банк» организован семинар-тренинг для представителей...</a>
-									<div class="item-newsmini__date">10 July 2019 / 00:00</div>
+                                    <a href="#" class="item-newsmini__text">{{.Description}}</a>
+									<div class="item-newsmini__date">{{.Time}}</div>
 								</li>
 							</ul>
 							<a href="" class="newsp-items__btn _btn2">Подробнее</a>
+                            {{end}}
 						</div>
+                        {{end}}
 					</div>
 				</div>
 				<section class="contacts">

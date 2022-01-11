@@ -12,18 +12,18 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetVacancies(w http.ResponseWriter, r *http.Request) {
+func GetTarifTable(w http.ResponseWriter, r *http.Request) {
 	connection := database.GetDatabase()
 	defer database.CloseDatabase(connection)
-	var vacancies []sm.Vacancies
-	connection.Preload("CityVacancies").Preload("CityVacancies.SimpleVacancies").Find(&vacancies)
+	var tarifTable []sm.TarifTable
+	connection.Find(&tarifTable)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(vacancies)
+	json.NewEncoder(w).Encode(tarifTable)
 }
 
-func CreateVacancies(w http.ResponseWriter, r *http.Request) {
-	var vacancies sm.Vacancies
-	err := json.NewDecoder(r.Body).Decode(&vacancies)
+func CreateTarifTable(w http.ResponseWriter, r *http.Request) {
+	var tarifTable sm.TarifTable
+	err := json.NewDecoder(r.Body).Decode(&tarifTable)
 	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
 		log.Fatal(err)
@@ -32,14 +32,14 @@ func CreateVacancies(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	database.CreateVacancies(vacancies)
+	database.CreateTarifTable(tarifTable)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(vacancies)
+	json.NewEncoder(w).Encode(tarifTable)
 }
 
-func EditVacancies(w http.ResponseWriter, r *http.Request) {
-	var vacancies sm.Vacancies
-	err := json.NewDecoder(r.Body).Decode(&vacancies)
+func EditTarifTable(w http.ResponseWriter, r *http.Request) {
+	var tarifTable sm.TarifTable
+	err := json.NewDecoder(r.Body).Decode(&tarifTable)
 	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
 		w.Header().Set("Content-type", "application/json")
@@ -55,13 +55,13 @@ func EditVacancies(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	vacancies.Id = uint(id)
-	database.EditVacancies(&vacancies)
+	tarifTable.Id = uint(id)
+	database.EditTarifTable(tarifTable)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(vacancies)
+	json.NewEncoder(w).Encode(tarifTable)
 }
 
-func DeleteVacancies(w http.ResponseWriter, r *http.Request) {
+func DeleteTarifTable(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 32)
 	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
@@ -70,7 +70,7 @@ func DeleteVacancies(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	database.DeleteVacancies(uint(id))
+	database.DeleteTarifTable(uint(id))
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 }

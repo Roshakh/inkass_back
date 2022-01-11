@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"inkass/inkassback/database"
 	"inkass/inkassback/models"
+	sm "inkass/inkassback/models/site-models"
 	"log"
 	"net/http"
 	"strconv"
@@ -11,18 +12,18 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetReviews(w http.ResponseWriter, r *http.Request) {
+func GetService(w http.ResponseWriter, r *http.Request) {
 	connection := database.GetDatabase()
 	defer database.CloseDatabase(connection)
-	var reviews []models.Reviews
-	connection.Find(&reviews)
+	var service []sm.Service
+	connection.Preload("ServiceCatalog").Preload("SingleService").Find(&service)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(reviews)
+	json.NewEncoder(w).Encode(service)
 }
 
-func CreateReviews(w http.ResponseWriter, r *http.Request) {
-	var reviews models.Reviews
-	err := json.NewDecoder(r.Body).Decode(&reviews)
+func CreateService(w http.ResponseWriter, r *http.Request) {
+	var service sm.Service
+	err := json.NewDecoder(r.Body).Decode(&service)
 	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
 		log.Fatal(err)
@@ -31,14 +32,14 @@ func CreateReviews(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	database.CreateReviews(reviews)
+	database.CreateService(service)
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(reviews)
+	json.NewEncoder(w).Encode(service)
 }
 
-func EditReviews(w http.ResponseWriter, r *http.Request) {
-	var reviews models.Reviews
-	err := json.NewDecoder(r.Body).Decode(&reviews)
+func EditService(w http.ResponseWriter, r *http.Request) {
+	var service sm.Service
+	err := json.NewDecoder(r.Body).Decode(&service)
 	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
 		w.Header().Set("Content-type", "application/json")
@@ -46,12 +47,6 @@ func EditReviews(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	database.EditReviews(reviews)
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(reviews)
-}
-
-func DeleteReviews(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 32)
 	if err != nil {
 		error := models.Error{IsError: true, Message: "Unproccessable entity"}
@@ -60,7 +55,22 @@ func DeleteReviews(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
-	database.DeleteReviews(uint(id))
+	service.Id = uint(id)
+	database.EditService(service)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(service)
+}
+
+func DeleteService(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 32)
+	if err != nil {
+		error := models.Error{IsError: true, Message: "Unproccessable entity"}
+		w.Header().Set("Content-type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(error)
+		return
+	}
+	database.DeleteService(uint(id))
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 }

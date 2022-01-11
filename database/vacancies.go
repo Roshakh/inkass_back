@@ -2,11 +2,11 @@ package database
 
 import sm "inkass/inkassback/models/site-models"
 
-func GetVacancies() []sm.Vacancies {
+func GetVacancies() sm.Vacancies {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	var vacancies []sm.Vacancies
-	connection.Preload("CityVacancies").Find(&vacancies)
+	var vacancies sm.Vacancies
+	connection.Preload("CityVacancies").Preload("CityVacancies.SimpleVacancies").First(&vacancies)
 	return vacancies
 }
 
@@ -16,14 +16,14 @@ func CreateVacancies(vacancies sm.Vacancies) {
 	connection.Create(&vacancies)
 }
 
-func EditVacancies(vacancies sm.Vacancies) {
+func EditVacancies(vacancies *sm.Vacancies) {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	connection.Create(&vacancies)
+	connection.Save(vacancies)
 }
 
 func DeleteVacancies(id uint) {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
-	connection.Create(&sm.Vacancies{Id: id})
+	connection.Delete(&sm.Vacancies{Id: id})
 }

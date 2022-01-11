@@ -47,6 +47,15 @@ func EditManagement(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(error)
 		return
 	}
+	id, err := strconv.ParseUint(mux.Vars(r)["id"], 10, 32)
+	if err != nil {
+		error := models.Error{IsError: true, Message: "Unproccessable entity"}
+		w.Header().Set("Content-type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(error)
+		return
+	}
+	management.Id = uint(id)
 	database.EditManagement(management)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(management)

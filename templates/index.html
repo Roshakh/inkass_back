@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="./css/libcss.css">
     <link rel="stylesheet" href="./css/style.min.css">
     <title>home</title>
+    <script>
+        console.log({{.}});
+        </script>
 </head>
     <body>
         <div class="wrapper">
@@ -20,11 +23,11 @@
                 <div class="right-topheader__phones">
                     <div class="right-topheader__phone">
                         <div class="right-topheader__phone_label">Телефон горячей линии:</div>
-                        <a data-da=".mobile-menu, 480, last" href="tel:+998712443927" class="right-topheader__phone_link _icon-phone">+99871 244 39 27</a>
+                        <a data-da=".mobile-menu, 480, last" href="tel:{{.SPhone}}" class="right-topheader__phone_link _icon-phone">{{.SPhone}}</a>
                     </div>
                     <div class="right-topheader__phone">
                         <div class="right-topheader__phone_label">Отдел по работе с клиентами:</div>
-                        <a data-da=".mobile-menu, 480, last" href="tel:+998712443927" class="right-topheader__phone_link _icon-phone">+99871 244 01 43</a>
+                        <a data-da=".mobile-menu, 480, last" href="tel:{{.CPhone}}" class="right-topheader__phone_link _icon-phone">{{.CPhone}}</a>
                     </div>
                 </div>
                 <div class="right-topheader__logo">
@@ -77,8 +80,8 @@
                     </div>
                     <div class="first-section__container _container">
                         <div class="first-section__box box-firstsection">
-                            <div class="box-firstsection__title _title">Мы вас обслуживаем по всей <span>Республике</span></div>
-                            <div class="box-firstsection__subtitle">Мы объединяем лучшие подходы банков-акционеров и мировые тренды в области наличного денежного обращения.</div>
+                            <div class="box-firstsection__title _title">{{.Content}}<span>Республике</span></div>
+                            <div class="box-firstsection__subtitle">{{.Description}}</div>
                             <a href="./aboutus.html" class="box-firstsection__link _btn">Подробнее</a>
                         </div>
                     </div>
@@ -317,7 +320,7 @@
 			+99871 244 39 27 <br> заявка на <br> инкассацию
 		</a>
 		<div class="contacts__location">
-			Республика Узбекистан, <br> Ташкент, 100011, ул. Навои, 19
+			Республика Узбекистан, <br> {{.Address}}
 		</div>
 	</div>
 </section>
@@ -347,22 +350,22 @@
         <div class="footer__top">
             <div class="footer__col col1">
                 <a href="./index.html" class="footer__logo"><picture><source srcset="img/logo-svg.svg" type="image/webp"><img src="img/logo-svg.svg" alt=""></picture></a>
-                <a href="#" class="footer__location">Республика Узбекистан,<br> Ташкент,  100011, ул. Навои, 19</a>
+                <a href="#" class="footer__location">Республика Узбекистан,<br> {{.Address}}</a>
                 <div class="footer__actions">
-                    <a href="tel:998712443927" class="footer__phone _icon-phone">(998 71) 244-39-27</a>
-                    <a href="email:info@uzinkass.uz" class="footer__email _icon-email">info@uzinkass.uz</a>
+                    <a href="tel:998712443927" class="footer__phone _icon-phone">{{.Phone}}</a>
+                    <a href="email:info@uzinkass.uz" class="footer__email _icon-email">{{.Email}}</a>
                 </div>
                 <div data-da=".footer__col.col2, 992, last" class="footer__social">
-                    <a href="" class="social-item okru _ibg">
+                    <a href={{.Links.OkUrl}} class="social-item okru _ibg">
                         <picture><source srcset="img/icons/social/okru.webp" type="image/webp"><img src="img/icons/social/okru.png" alt=""></picture>                                                
                     </a>
-                    <a href="" class="social-item facebook _ibg">
+                    <a href={{.Links.FbUrl}} class="social-item facebook _ibg">
                         <picture><source srcset="img/icons/social/facebook.webp" type="image/webp"><img src="img/icons/social/facebook.png" alt=""></picture>                                                
                     </a>
-                    <a href="" class="social-item vkontakte _ibg">
+                    <a href={{.Links.VkUrl}} class="social-item vkontakte _ibg">
                         <picture><source srcset="img/icons/social/vkontakte.webp" type="image/webp"><img src="img/icons/social/vkontakte.png" alt=""></picture>                                                
                     </a>
-                    <a href="" class="social-item telegram _ibg">
+                    <a href={{.Links.TgUrl}} class="social-item telegram _ibg">
                         <picture><source srcset="img/icons/social/telegram.webp" type="image/webp"><img src="img/icons/social/telegram.png" alt=""></picture>                                                
                     </a>
                 </div>
@@ -390,11 +393,11 @@
             <div class="footer__col col3">
                 <div class="footer__users">
                     <div class="footer__users_title _fot-title">Сейчас на сайте:</div>
-                    Пользователи: <span class="footer__users_count">0</span>
+                    Пользователи: <span class="footer__users_count">{{.Online}}</span>
                 </div>
                 <div class="footer__update">
                     <div class="footer__update_title _fot-title">Последнее обновление:</div>
-                    <div class="footer__update_date">23 сентября 2021 - 12:54</div>
+                    <div class="footer__update_date">{{.LastUpdate}}</div>
                 </div>
             </div>
         </div>

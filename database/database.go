@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"inkass/inkassback/models"
+	// "inkass/inkassback/models"
 	sm "inkass/inkassback/models/site-models"
 
 	"gorm.io/driver/sqlite"
@@ -37,6 +37,7 @@ func InitialMigration() {
 	_ = connection.AutoMigrate(&sm.News{})
 	_ = connection.AutoMigrate(&sm.SingleNew{})
 	_ = connection.AutoMigrate(&sm.Service{})
+	_ = connection.AutoMigrate(&sm.ServiceCatalog{})
 	_ = connection.AutoMigrate(&sm.SingleService{})
 	_ = connection.AutoMigrate(&sm.ContactScreen{})
 	_ = connection.AutoMigrate(&sm.Regions{})
@@ -46,7 +47,9 @@ func InitialMigration() {
 	_ = connection.AutoMigrate(&sm.WorkTime{})
 	_ = connection.AutoMigrate(&sm.Vacancies{})
 	_ = connection.AutoMigrate(&sm.CityVacancies{})
-	_ = connection.AutoMigrate(&models.Reviews{})
+	_ = connection.AutoMigrate(&sm.SimpleVacancies{})
+	_ = connection.AutoMigrate(&sm.TarifTable{})
+	_ = connection.AutoMigrate(&sm.Review{})
 
 }
 
