@@ -7,11 +7,11 @@ import (
 )
 
 type Vacancies struct {
-	Id            uint            `gorm:"primaryKey;autoIncrement:true" json:"id"`
-	CreatedAt     time.Time       `json:"created_at"`
-	UpdatedAt     time.Time       `json:"updated_at"`
-	DeletedAt     gorm.DeletedAt  `gorm:"index" json:"deleted_at"`
-	CityName      string          `json:"city_name"`
+	Id        uint           `gorm:"primaryKey;autoIncrement:true" json:"id"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
+
 	Limit         string          `json:"limit"`
 	CityVacancies []CityVacancies `json:"city_vacancies"`
 }
@@ -22,6 +22,7 @@ type CityVacancies struct {
 	UpdatedAt       time.Time         `json:"updated_at"`
 	DeletedAt       gorm.DeletedAt    `gorm:"index" json:"deleted_at"`
 	VacanciesId     uint              `json:"vacancies_id"`
+	CityName        string            `json:"city_name"`
 	Content         string            `json:"content"`
 	Location        string            `json:"location"`
 	StaffTime       string            `json:"staff_time"`

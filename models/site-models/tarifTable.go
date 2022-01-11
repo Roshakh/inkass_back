@@ -11,9 +11,9 @@ type TarifTable struct {
 	CreatedAt     time.Time      `json:"created_at"`
 	UpdatedAt     time.Time      `json:"updated_at"`
 	DeletedAt     gorm.DeletedAt `gorm:"index" json:"deleted_at"`
-	Monthly       uint           `json:"monthly"`
-	MonthlyPrc    uint           `json:"monthly_prc"`
-	ForCustom     uint           `json:"for_custom"`
-	ForCustomOnce uint           `json:"for_custome_once"`
-	LimitMonthly  uint           `json:"limit_monthly"`
+	Monthly       string         `json:"monthly"`
+	MonthlyPrc    string         `json:"monthly_prc"`
+	ForCustom     string         `json:"for_custom"`
+	ForCustomOnce string         `json:"for_custome_once"`
+	LimitMonthly  string         `json:"limit_monthly"`
 }
