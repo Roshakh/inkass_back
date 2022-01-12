@@ -33,9 +33,9 @@ type Review struct {
 	UpdatedAt   time.Time      `json:"updated_at"`
 	DeletedAt   gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 	AboutUsId   uint           `json:"about_us_id"`
-	ImageUrl    string         `json:"image_url"`
-	UserName    string         `json:"user_name"`
 	Content     string         `json:"content"`
 	Description string         `json:"description"`
+	ImageUrl    string         `json:"image_url"`
+	UserName    string         `json:"user_name"`
 	Rates       uint           `json:"rates"`
 }

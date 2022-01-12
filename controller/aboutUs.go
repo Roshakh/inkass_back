@@ -16,7 +16,7 @@ func GetAboutUs(w http.ResponseWriter, r *http.Request) {
 	connection := database.GetDatabase()
 	defer database.CloseDatabase(connection)
 	var aboutUs sm.AboutUs
-	connection.Preload("Review").First(&aboutUs)
+	connection.Preload("Reviews").Find(&aboutUs)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(aboutUs)
 }

@@ -9,6 +9,9 @@
     <title>about us</title>
   </head>
   <body>
+    <script>
+      console.log({{.}});
+    </script>
     <div class="wrapper">
       <header id="header" class="header">
         <div class="header__container _container">
@@ -122,7 +125,6 @@
         </div>
       </header>
       <main class="main">
-        {{range .}}
         <section
           class="aboutus-section _anim-items _anim-no-hide first whoarewe"
         >
@@ -138,6 +140,7 @@
               {{.Description}}
             </div>
           </div>
+       
         </section>
         <section
           class="
@@ -226,14 +229,14 @@
               <div class="comments__swiper swiper">
                 <div class="swiper-wrapper">
                   {{range .Review}}
-                    <div class="swiper-slide">
+                  <div xclass="swiper-slide">
                         <div class="comments-slide">
-                        <div class="comments-slide__title">
-                            {{.Content}}
+                        <div class="comments-slide__title">  
+                          {{ .Content}}
                         </div>
                         <div class="comments-slide__text">
-                            {{.Description}}
-                        </div>
+                          {{ .Description}}
+                          </div>
                         <div class="comments-slide__footer">
                             <div class="comments-slide__image">
                             <picture
@@ -272,16 +275,15 @@
                         </div>
                         <div class="comments-slide__bottom1"></div>
                         <div class="comments-slide__bottom2"></div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="comments__swiper_actions">
+                    <div class="comments__swiper_nextBtn"></div>
+                  </div>
                   {{end}}
                 </div>
               </div>
-              {{end}}
-              <div class="comments__swiper_actions">
-                <div class="comments__swiper_nextBtn"></div>
-              </div>
-            </div>
-          </div>
         </section>
         <section class="lrequest">
           <div class="lrequest__container _container">

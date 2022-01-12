@@ -6,7 +6,7 @@ func GetAboutUs() sm.AboutUs {
 	connection := GetDatabase()
 	defer CloseDatabase(connection)
 	var aboutUs sm.AboutUs
-	connection.Preload("Review").First(&aboutUs)
+	connection.Preload("Reviews").Find(&aboutUs)
 	return aboutUs
 }
 
